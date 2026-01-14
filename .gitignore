@@ -5,3 +5,6 @@ venv/
 __pycache__/
 *.pyc
 
+# Generated Reports  
+
+scan_report.txt
