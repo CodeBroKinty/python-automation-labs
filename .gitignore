@@ -8,3 +8,4 @@ __pycache__/
 # Generated Reports  
 
 scan_report.txt
+scan_folder.log
