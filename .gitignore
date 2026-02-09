@@ -1,11 +1,26 @@
 # Virtual Environment
 venv/
+env/
+ENV/
 
 # Python cache
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+.Python
 
-# Generated Reports  
-
+# Generated outputs
 scan_report.txt
 scan_folder.log
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
