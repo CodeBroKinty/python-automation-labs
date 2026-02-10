@@ -24,3 +24,7 @@ scan_folder.log
 # OS
 .DS_Store
 Thumbs.db
+
+# File integrity baselines and logs
+integrity_baseline.json
+file_integrity.log
