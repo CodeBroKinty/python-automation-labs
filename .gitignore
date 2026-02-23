@@ -32,3 +32,9 @@ file_integrity.log
 # Brute force detector
 sample_brute_force.log
 brute_force_detector.log
+
+# File tamper detector
+tamper_baseline.json
+file_tamper_detector.log
+test_tamper/
+
