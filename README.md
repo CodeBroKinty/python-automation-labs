@@ -216,6 +216,164 @@ PID      Name                      CPU %    Memory MB    Threads    Status
 
 ---
 
+### Cybersecurity (`cybersecurity/`)
+
+#### 1. `log_parser.py` - Authentication Log Parser (Week 3)
+**What it does:**
+- Parses authentication logs (SSH, system logins)
+- Counts failed login attempts per user and IP
+- Identifies suspicious patterns
+- Flags invalid username attempts
+
+**Security+ relevance:**
+- Log analysis and monitoring (Domain 2.4)
+- Security incident detection
+- Attack pattern recognition
+
+**How to run:**
+```bash
+# Generate and parse sample log
+python cybersecurity/log_parser.py --sample
+
+# Parse actual log file
+python cybersecurity/log_parser.py --file /var/log/auth.log
+```
+
+**Example output:**
+```
+⚠️  2 SUSPICIOUS USERS (≥5 failed logins)
+   - root: 6 failed attempts
+   - admin: 5 failed attempts
+
+⚠️  SUSPICIOUS IP ADDRESSES (≥5 failed logins)
+   - 192.168.1.100: 13 failed attempts
+```
+
+---
+
+#### 2. `brute_force_detector.py` - Advanced Brute-Force Detection (Week 3)
+**What it does:**
+- **Velocity attacks**: Detects rapid-fire login attempts (X attempts in Y seconds)
+- **Distributed attacks**: Identifies coordinated attacks from multiple IPs
+- **Account enumeration**: Catches attackers testing multiple usernames
+- Time-based pattern analysis with adjustable thresholds
+
+**Security+ relevance:**
+- Advanced threat detection (Domain 4.1)
+- Incident response
+- Attack pattern recognition
+
+**How to run:**
+```bash
+# Analyze with default settings
+python cybersecurity/brute_force_detector.py --sample
+
+# Custom thresholds
+python cybersecurity/brute_force_detector.py --sample --velocity 3 --window 30
+```
+
+**Example output:**
+```
+🚨 VELOCITY ATTACKS (2 detected)
+   Rapid-fire login attempts from single source
+
+   IP: 203.0.113.10
+      Attempts: 10 in 60s
+      Start: 14:30:10
+      Targeted users: root, admin
+
+🚨 DISTRIBUTED ATTACKS (1 detected)
+   Target: admin
+      Attack IPs: 5
+      Total attempts: 11
+
+🚨 ACCOUNT ENUMERATION (1 detected)
+   Source IP: 192.0.2.50
+      Usernames tested: 12
+```
+
+---
+
+#### 3. `file_tamper_detector.py` - Advanced File Integrity Monitoring (Week 3)
+**What it does:**
+- Creates SHA-256 baselines with metadata tracking
+- **Watch mode**: Continuously monitors files for changes
+- Detects content modifications, permission changes, and size changes
+- Tracks additions and deletions
+- Critical system file protection
+
+**Security+ relevance:**
+- File integrity monitoring (FIM)
+- Host-based intrusion detection
+- Change management
+
+**How to run:**
+```bash
+# Create baseline
+python cybersecurity/file_tamper_detector.py --baseline <folder>
+
+# Check for tampering
+python cybersecurity/file_tamper_detector.py --check <folder>
+
+# Real-time monitoring (watch mode)
+python cybersecurity/file_tamper_detector.py --watch <folder> --interval 5
+
+# Check critical system files
+python cybersecurity/file_tamper_detector.py --critical
+```
+
+**Example output:**
+```
+⚠️  1 CHANGE(S) DETECTED
+
+🔴 CONTENT MODIFIED (1 files)
+   File: file1.txt
+      Hash changed: bf65d03f943b0d96... → 801761f8ab9de26f...
+      Time: 2026-02-23 12:01:03
+```
+
+---
+
+#### 4. `security_reporter.py` - Professional Security Reporting (Week 3)
+**What it does:**
+- Generates multi-format reports from security logs
+- **CSV export**: Excel-ready data analysis
+- **Markdown reports**: Executive summaries with risk assessment
+- **JSON export**: API/programmatic integration
+- Automated risk scoring and recommendations
+
+**Security+ relevance:**
+- Security reporting and documentation
+- Incident response documentation
+- Executive communication
+
+**How to run:**
+```bash
+# Generate all report formats
+python cybersecurity/security_reporter.py --log-analysis sample_auth.log
+
+# Specific format only
+python cybersecurity/security_reporter.py --log-analysis sample_auth.log --format markdown
+python cybersecurity/security_reporter.py --log-analysis sample_auth.log --format csv
+python cybersecurity/security_reporter.py --log-analysis sample_auth.log --format json
+```
+
+**Generated reports:**
+- `security_reports/failed_logins.csv` - All failed login attempts
+- `security_reports/attack_summary.csv` - IP-based attack statistics
+- `security_reports/security_report.md` - Comprehensive markdown report
+- `security_reports/security_summary.json` - Structured data export
+
+**Example Markdown report includes:**
+- Executive summary with failure rates
+- Risk assessment (CRITICAL/HIGH/MEDIUM/LOW)
+- Ranked tables of attack sources
+- Most targeted accounts
+- Invalid username attempts
+- Actionable recommendations
+
+---
+
 ## 🔧 Configuration
 
 All scripts use centralized configuration in `utils/config.py`.
@@ -305,6 +463,13 @@ Current dependencies:
 - ✅ Cryptographic hashing (SHA-256)
 - ✅ Process and system monitoring
 - ✅ Configuration management
+- ✅ Regular expressions and pattern matching
+- ✅ Log parsing and analysis
+- ✅ Time-based pattern detection
+- ✅ Multi-format reporting (CSV, Markdown, JSON)
+- ✅ Real-time monitoring with watch loops
+- ✅ Advanced threat detection algorithms
+- ✅ Security incident response
 
 ---
 
@@ -313,7 +478,7 @@ Current dependencies:
 This repository is being built as part of a structured learning path covering:
 - **Week 1:** Python fundamentals + file operations ✅
 - **Week 2:** System administration automation ✅
-- **Week 3:** Cybersecurity tools (log parsing, threat detection)
+- **Week 3:** Cybersecurity tools (log parsing, threat detection) ✅
 - **Week 4:** Network automation (scanning, monitoring)
 - **Week 5:** AWS cloud automation
 - **Week 6:** Productivity tools + portfolio polish
@@ -334,4 +499,4 @@ This project is for educational and portfolio purposes.
 
 ---
 
-**Note:** Generated files (`*.log`, `scan_report.txt`, `integrity_baseline.json`) are excluded from version control via `.gitignore`.
+**Note:** Generated files (`*.log`, `scan_report.txt`, `integrity_baseline.json`, `security_reports/`) are excluded from version control via `.gitignore`.
