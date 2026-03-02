@@ -1,5 +1,5 @@
 {
-  "generated": "2026-02-24T11:45:29.475466",
+  "generated": "2026-02-24T11:52:03.824523",
   "total_events": 20,
   "failed_logins": 18,
   "successful_logins": 2,
@@ -8,9 +8,9 @@
       "failed_attempts": 13,
       "unique_users": 3,
       "usernames": [
-        "backup",
+        "root",
         "admin",
-        "root"
+        "backup"
       ]
     },
     "10.0.0.50": {
@@ -33,8 +33,8 @@
       "failed_attempts": 5,
       "unique_ips": 2,
       "source_ips": [
-        "203.0.113.50",
-        "192.168.1.100"
+        "192.168.1.100",
+        "203.0.113.50"
       ]
     },
     "root": {
