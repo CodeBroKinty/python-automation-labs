@@ -41,3 +41,7 @@ test_tamper/
 # Ping sweep
 ping_sweep.log
 ping_results.txt
+
+# Service detector
+service_detector.log
+
