@@ -374,6 +374,183 @@ python cybersecurity/security_reporter.py --log-analysis sample_auth.log --forma
 
 ---
 
+### Networking (`networking/`)
+
+#### 1. `ping_sweep.py` - Network Host Discovery (Week 4)
+**What it does:**
+- Scans network ranges to find live hosts
+- Supports CIDR notation (192.168.1.0/24), IP ranges, and single IPs
+- Concurrent scanning with configurable thread pools
+- Cross-platform (Windows, Linux, Mac)
+
+**Security+ relevance:**
+- Network reconnaissance (Domain 3.3)
+- Asset discovery
+- Network mapping
+
+**How to run:**
+```bash
+# Scan single IP
+python networking/ping_sweep.py --target 192.168.1.1
+
+# Scan IP range
+python networking/ping_sweep.py --target 192.168.1.1-192.168.1.50
+
+# Scan entire subnet
+python networking/ping_sweep.py --target 192.168.1.0/24
+
+# Export results
+python networking/ping_sweep.py --target 192.168.1.0/24 --output live_hosts.txt
+```
+
+**Example output:**
+```
+🔍 Scanning 254 host(s)...
+Progress: 254/254 (100.0%)
+
+✅ LIVE HOSTS (10)
+   192.168.1.1     - Response time: 2ms
+   192.168.1.5     - Response time: 5ms
+   192.168.1.10    - Response time: 3ms
+```
+
+---
+
+#### 2. `port_scanner.py` - TCP Port Scanner (Week 4)
+**What it does:**
+- Scans TCP ports to identify open services
+- Fast concurrent scanning (100 threads by default)
+- Common port presets and custom port ranges
+- Service identification by port number
+- Detects open, closed, and filtered ports
+
+**Security+ relevance:**
+- Vulnerability scanning (Domain 4.1)
+- Service enumeration
+- Attack surface analysis
+
+**How to run:**
+```bash
+# Scan common ports
+python networking/port_scanner.py --target 192.168.1.1 --common
+
+# Scan specific ports
+python networking/port_scanner.py --target 192.168.1.1 --ports 80,443,22,3306
+
+# Scan port range
+python networking/port_scanner.py --target 192.168.1.1 --range 1-1024
+
+# Export results
+python networking/port_scanner.py --target 192.168.1.1 --common --output scan_results.txt
+```
+
+**Example output:**
+```
+✅ OPEN PORTS (3)
+   Port     Service              Status
+   -------- -------------------- ----------
+   22       SSH                  open
+   80       HTTP                 open
+   443      HTTPS                open
+
+⏱️  Scan completed in 1.20 seconds
+```
+
+---
+
+#### 3. `service_detector.py` - Banner Grabbing & Service Detection (Week 4)
+**What it does:**
+- Connects to open ports and grabs service banners
+- Identifies service versions (OpenSSH 7.4, Apache 2.4, etc.)
+- OS fingerprinting from service signatures
+- Regex-based signature matching
+- Detects vulnerabilities through version identification
+
+**Security+ relevance:**
+- Service enumeration (Domain 3.3)
+- Vulnerability assessment
+- OS fingerprinting
+
+**How to run:**
+```bash
+# Detect services on specific ports
+python networking/service_detector.py --target 192.168.1.1 --port 22,80,443
+
+# Auto-scan common ports first, then detect
+python networking/service_detector.py --target 192.168.1.1 --scan-first
+```
+
+**Example output:**
+```
+✅ DETECTED SERVICES
+   Port     Service              Version/Details
+   -------- -------------------- ----------------------------------------
+   22       SSH                  OpenSSH 6.6.1
+            OS Hint: Linux
+   80       HTTP                 Apache 2.4.7
+            OS Hint: Linux
+
+📋 RAW BANNERS
+   Port 22:
+      SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.13
+
+   Port 80:
+      HTTP/1.1 200 OK
+      Server: Apache/2.4.7 (Ubuntu)
+```
+
+---
+
+#### 4. `network_scanner.py` - Unified Network Reconnaissance (Week 4)
+**What it does:**
+- Combines ping sweep, port scanning, and service detection
+- Three scan modes: Quick (6 ports), Standard (16 ports), Deep (1024 ports)
+- Comprehensive network assessment in one command
+- Multi-format reporting (console, text, JSON)
+- Concurrent host and port scanning
+
+**Security+ relevance:**
+- Complete network assessment
+- Penetration testing workflow
+- Security auditing
+
+**How to run:**
+```bash
+# Quick scan (6 common ports)
+python networking/network_scanner.py --target 192.168.1.0/24 --quick
+
+# Standard scan (16 ports) - default
+python networking/network_scanner.py --target 192.168.1.1
+
+# Deep scan (first 1024 ports)
+python networking/network_scanner.py --target 192.168.1.1 --deep
+
+# Export comprehensive report
+python networking/network_scanner.py --target 192.168.1.0/24 --export
+```
+
+**Example output:**
+```
+📊 OVERVIEW
+   Live hosts discovered: 5
+   Total open ports: 12
+
+✅ DISCOVERED HOSTS
+
+   📍 192.168.1.1
+      Open ports: 3
+      Ports: 22, 80, 443
+      Services detected:
+         22: SSH-2.0-OpenSSH_7.4
+         80: HTTP/1.1 200 OK Server: nginx/1.18.0
+
+📁 Reports saved:
+   Text: network_scan_20260305_095050.txt
+   JSON: network_scan_20260305_095050.json
+```
+
+---
+
 ## 🔧 Configuration
 
 All scripts use centralized configuration in `utils/config.py`.
@@ -470,6 +647,12 @@ Current dependencies:
 - ✅ Real-time monitoring with watch loops
 - ✅ Advanced threat detection algorithms
 - ✅ Security incident response
+- ✅ Network reconnaissance and scanning
+- ✅ Concurrent programming with ThreadPoolExecutor
+- ✅ Socket programming (TCP connections)
+- ✅ Banner grabbing and service fingerprinting
+- ✅ CIDR notation and IP address manipulation
+- ✅ Cross-platform networking
 
 ---
 
@@ -479,7 +662,7 @@ This repository is being built as part of a structured learning path covering:
 - **Week 1:** Python fundamentals + file operations ✅
 - **Week 2:** System administration automation ✅
 - **Week 3:** Cybersecurity tools (log parsing, threat detection) ✅
-- **Week 4:** Network automation (scanning, monitoring)
+- **Week 4:** Network automation (scanning, monitoring) ✅
 - **Week 5:** AWS cloud automation
 - **Week 6:** Productivity tools + portfolio polish
 
@@ -499,4 +682,4 @@ This project is for educational and portfolio purposes.
 
 ---
 
-**Note:** Generated files (`*.log`, `scan_report.txt`, `integrity_baseline.json`, `security_reports/`) are excluded from version control via `.gitignore`.
+**Note:** Generated files (`*.log`, `scan_report.txt`, `integrity_baseline.json`, `security_reports/`, `network_reports/`) are excluded from version control via `.gitignore`.

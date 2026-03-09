@@ -45,3 +45,6 @@ ping_results.txt
 # Service detector
 service_detector.log
 
+# Network scanner
+network_scanner.log
+network_reports/
