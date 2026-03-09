@@ -48,3 +48,17 @@ service_detector.log
 # Network scanner
 network_scanner.log
 network_reports/
+
+# AWS credentials (NEVER COMMIT THESE!)
+.aws/
+credentials
+*.pem
+*.key
+*accessKeys.csv
+
+# Cloud automation
+cloud_automation_reports/
+ec2_inventory.log
+s3_audit.log
+iam_analyzer.log
+cost_monitor.log
