@@ -69,7 +69,7 @@ Jan 20 14:45:30 server sshd[5030]: Accepted password for backup from 10.0.0.20 p
     return sample_file
 
 
-def parse_auth_log_line(line):
+def parse_auth_log_line(line): # Parse a single line from the authentication log
     """Parse authentication log line."""
     pattern = r'(\w+\s+\d+\s+\d+:\d+:\d+).*?(Failed|Accepted) password for (invalid user )?(\S+) from (\S+)'
     
@@ -99,7 +99,7 @@ def parse_auth_log_line(line):
     return None
 
 
-def parse_log_file(log_file_path, logger):
+def parse_log_file(log_file_path, logger): # Parse the authentication log file
     """Parse authentication log file."""
     log_file = Path(log_file_path)
     
@@ -130,7 +130,7 @@ def parse_log_file(log_file_path, logger):
     return parsed_entries
 
 
-def detect_velocity_attacks(entries, time_window, velocity_threshold, logger):
+def detect_velocity_attacks(entries, time_window, velocity_threshold, logger): # Detect rapid-fire login attempts (velocity attacks)
     """
     Detect rapid-fire login attempts (velocity attacks).
     
@@ -177,7 +177,7 @@ def detect_velocity_attacks(entries, time_window, velocity_threshold, logger):
     return velocity_attacks
 
 
-def detect_distributed_attacks(entries, distributed_threshold, logger):
+def detect_distributed_attacks(entries, distributed_threshold, logger): # Detect coordinated attacks from multiple IPs targeting same user
     """
     Detect coordinated attacks from multiple IPs targeting same user.
     
@@ -213,7 +213,7 @@ def detect_distributed_attacks(entries, distributed_threshold, logger):
     return distributed_attacks
 
 
-def detect_account_enumeration(entries, enumeration_threshold, logger):
+def detect_account_enumeration(entries, enumeration_threshold, logger): # Detect account enumeration (testing many usernames from one IP)
     """
     Detect account enumeration (testing many usernames from one IP).
     
@@ -249,7 +249,7 @@ def detect_account_enumeration(entries, enumeration_threshold, logger):
     return enumeration_attacks
 
 
-def print_detection_report(velocity, distributed, enumeration, time_window, velocity_threshold, distributed_threshold, enumeration_threshold):
+def print_detection_report(velocity, distributed, enumeration, time_window, velocity_threshold, distributed_threshold, enumeration_threshold): # Print formatted attack detection report
     """Print formatted attack detection report."""
     print("\n" + "=" * 80)
     print("BRUTE-FORCE ATTACK DETECTION REPORT")
@@ -317,7 +317,7 @@ def print_detection_report(velocity, distributed, enumeration, time_window, velo
     print("=" * 80 + "\n")
 
 
-def main():
+def main(): # Main execution function
     """Main execution function."""
     parser = argparse.ArgumentParser(
         description="Advanced Brute-Force Attack Detector"

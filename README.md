@@ -62,7 +62,7 @@ Current Directory: C:\Users\Kiante\python-automation-labs
 
 ---
 
-#### 2. `day3_scan_folder.py` - Basic Folder Scanner
+#### 2. `scan_folder_basic.py` - Basic Folder Scanner
 **What it does:**
 - Scans a target directory
 - Groups files by extension type
@@ -70,12 +70,12 @@ Current Directory: C:\Users\Kiante\python-automation-labs
 
 **How to run:**
 ```bash
-python system_admin/day3_scan_folder.py
+python system_admin/scan_folder_basic.py
 ```
 
 ---
 
-#### 3. `day3_scan_folder_logged.py` - Advanced Folder Scanner
+#### 3. `scan_folder.py` - Advanced Folder Scanner
 **What it does:**
 - Everything from the basic scanner, plus:
 - Logs all operations to `scan_folder.log`
@@ -85,7 +85,7 @@ python system_admin/day3_scan_folder.py
 
 **How to run:**
 ```bash
-python system_admin/day3_scan_folder_logged.py
+python system_admin/scan_folder.py
 ```
 
 **Example scan_report.txt:**
@@ -97,8 +97,8 @@ Recursive: False
 Total files found: 8
 
 [.py] (3 files)
-  - day3_scan_folder.py
-  - day3_scan_folder_logged.py
+  - scan_folder.py
+  - scan_folder_basic.py
   - system_info.py
 
 [.md] (1 files)
